@@ -1,10 +1,12 @@
 class Item:
     pay_rate = 0.85
+    examples = []
 
     def __init__(self, item_name, item_price, amount):
         self.item_name = item_name
         self.item_price = item_price
         self.amount = amount
+        self.examples.append([item_name, item_price, amount])
 
     def calculate_total_price(self):
         return self.item_price * self.amount
@@ -22,4 +24,5 @@ print(item2.calculate_total_price())
 Item.pay_rate = 0.8
 
 print(item1.apply_discount())
-print(item2.item_price)
+#print(item2.item_price)
+print(item1.examples)
