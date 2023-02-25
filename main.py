@@ -34,6 +34,15 @@ class Item:
                 item_name, item_price, amount = (i['name'], i['price'], i['quantity'])
                 cls.initiated_examples.append(cls(item_name, item_price, amount))
 
+                @staticmethod
+                def is_integer(item_price) -> bool:
+                    if type(item_price) is int:
+                        return True
+                    else:
+                        return False
+
+
+
     def calculate_total_price(self):
         return int(self.item_price) * int(self.amount)
 
@@ -63,7 +72,11 @@ class Item:
 
 Item.instantiate_from_csv()
 print(len(Item.initiated_examples))
+print(Item.examples_data)
 item1 = Item.initiated_examples[0]
 print(item1.item_name)
 
+print(Item.is_integer(5))
+print(Item.is_integer(5.0))
+print(Item.is_integer(5.5))
 
