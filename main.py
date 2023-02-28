@@ -28,7 +28,8 @@ class Item:
     def instantiate_from_csv(cls) -> 'Item':
         """метод класса, выполняющий альтернативный способ создания объектов-товаров. Из csv-файла"""
         @staticmethod
-        def is_integer(item_price_type, item_quantity_type) -> bool:
+        def is_integers(item_price_type, item_quantity_type) -> bool:
+            """Статический метод, который проверяет, являются ли числа, полученные из csv-файла целым"""
             if float(item_price_type + item_quantity_type) % 1 == 0 or float(item_price_type + item_quantity_type) % 1 == 0.0:
                 return True
             elif float(item_price_type) % 1 == 0 or float(item_price_type) % 1 == 0.0:
@@ -40,8 +41,8 @@ class Item:
         with open('items.csv') as csvitems:
             csvreader = csv.DictReader(csvitems)
             for i in csvreader:
-                static_func = is_integer(i['price'], i['quantity'])
-                if static_func:
+                static_func = is_integers(i['price'], i['quantity'])
+                if static_func == True:
                     item_name, item_price, quantity = (i['name'], float(i['price']), float(i['quantity']))
                     cls.examples_data.append([item_name, int(item_price), int(quantity)])
                     cls.initiated_examples.append(cls(item_name, int(item_price), int(quantity)))
