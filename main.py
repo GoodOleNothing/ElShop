@@ -10,6 +10,7 @@ class Item:
         self.__item_name = item_name
         self.item_price = item_price
         self.amount = amount
+        self.is_integers
 
     @property
     def item_name(self) -> str:
@@ -27,21 +28,10 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls) -> 'Item':
         """метод класса, выполняющий альтернативный способ создания объектов-товаров. Из csv-файла"""
-        @staticmethod
-        def is_integers(item_price_type, item_quantity_type) -> bool:
-            """Статический метод, который проверяет, являются ли числа, полученные из csv-файла целым"""
-            if float(item_price_type + item_quantity_type) % 1 == 0 or float(item_price_type + item_quantity_type) % 1 == 0.0:
-                return True
-            elif float(item_price_type) % 1 == 0 or float(item_price_type) % 1 == 0.0:
-                return 'price is int'
-            elif float(item_quantity_type) % 1 == 0 or float(item_quantity_type) % 1 == 0.0:
-                return 'quantity is int'
-            else:
-                return False
         with open('items.csv') as csvitems:
             csvreader = csv.DictReader(csvitems)
             for i in csvreader:
-                static_func = is_integers(i['price'], i['quantity'])
+                static_func = cls.is_integers(i['price'], i['quantity'])
                 if static_func == True:
                     item_name, item_price, quantity = (i['name'], float(i['price']), float(i['quantity']))
                     cls.examples_data.append([item_name, int(item_price), int(quantity)])
@@ -59,7 +49,18 @@ class Item:
                     cls.examples_data.append([item_name, item_price, quantity])
                     cls.initiated_examples.append(cls(item_name, item_price, quantity))
 
-
+    @staticmethod
+    def is_integers(item_price_type = 0.1, item_quantity_type = 0) -> bool:
+        """Статический метод, который проверяет, являются ли числа, полученные из csv-файла целым"""
+        if float(item_price_type + item_quantity_type) % 1 == 0 or float(
+                item_price_type + item_quantity_type) % 1 == 0.0:
+            return True
+        elif float(item_price_type) % 1 == 0 or float(item_price_type) % 1 == 0.0:
+            return 'price is int'
+        elif float(item_quantity_type) % 1 == 0 or float(item_quantity_type) % 1 == 0.0:
+            return 'quantity is int'
+        else:
+            return False
 
     def calculate_total_price(self):
         return int(self.item_price) * int(self.amount)
@@ -83,18 +84,17 @@ class Item:
 #print(item1.examples)
 #print(item1._item_name)
 
-#item = Item('Телефон', 10000, 5)
-#item.item_name = 'Смартфон'
-#print(item.item_name)
+item = Item('Телефон', 10000, 5)
+item.item_name = 'Смартфон'
+print(item.item_name)
 #item.item_name = 'СуперСмартфон'
 
 Item.instantiate_from_csv()
 print(len(Item.initiated_examples))
-print(Item.examples_data)
 item1 = Item.initiated_examples[0]
 print(item1.item_name)
 
-#print(Item.is_integer(5))
-#print(Item.is_integer(5.0))
-#print(Item.is_integer(5.5))
+print(Item.is_integers(5, 5.0)) #Для цены и для количества
+print(Item.is_integers(5.0, 5.5))
+print(Item.is_integers(5.5, 5.7))
 
