@@ -27,12 +27,38 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls) -> 'Item':
         """метод класса, выполняющий альтернативный способ создания объектов-товаров. Из csv-файла"""
+        @staticmethod
+        def is_integer(item_price_type, item_quantity_type) -> bool:
+            if float(item_price_type + item_quantity_type) % 1 == 0 or float(item_price_type + item_quantity_type) % 1 == 0.0:
+                return True
+            elif float(item_price_type) % 1 == 0 or float(item_price_type) % 1 == 0.0:
+                return 'price is int'
+            elif float(item_quantity_type) % 1 == 0 or float(item_quantity_type) % 1 == 0.0:
+                return 'quantity is int'
+            else:
+                return False
         with open('items.csv') as csvitems:
             csvreader = csv.DictReader(csvitems)
             for i in csvreader:
-                cls.examples_data.append([i['name'], i['price'], i['quantity']])
-                item_name, item_price, amount = (i['name'], i['price'], i['quantity'])
-                cls.initiated_examples.append(cls(item_name, item_price, amount))
+                static_func = is_integer(i['price'], i['quantity'])
+                if static_func:
+                    item_name, item_price, quantity = (i['name'], float(i['price']), float(i['quantity']))
+                    cls.examples_data.append([item_name, int(item_price), int(quantity)])
+                    cls.initiated_examples.append(cls(item_name, int(item_price), int(quantity)))
+                elif static_func == 'price is int':
+                    item_name, item_price, quantity = (i['name'], float(i['price']), float(i['quantity']))
+                    cls.examples_data.append([item_name, int(item_price), quantity])
+                    cls.initiated_examples.append(cls(item_name, int(item_price), quantity))
+                elif static_func == 'quantity is int':
+                    item_name, item_price, quantity = (i['name'], float(i['price']), float(i['quantity']))
+                    cls.examples_data.append([item_name, item_price, int(quantity)])
+                    cls.initiated_examples.append(cls(item_name, item_price, int(quantity)))
+                else:
+                    item_name, item_price, quantity = (i['name'], float(i['price']), float(i['quantity']))
+                    cls.examples_data.append([item_name, item_price, quantity])
+                    cls.initiated_examples.append(cls(item_name, item_price, quantity))
+
+
 
     def calculate_total_price(self):
         return int(self.item_price) * int(self.amount)
@@ -63,7 +89,11 @@ class Item:
 
 Item.instantiate_from_csv()
 print(len(Item.initiated_examples))
+print(Item.examples_data)
 item1 = Item.initiated_examples[0]
 print(item1.item_name)
 
+#print(Item.is_integer(5))
+#print(Item.is_integer(5.0))
+#print(Item.is_integer(5.5))
 
