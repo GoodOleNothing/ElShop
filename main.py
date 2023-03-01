@@ -11,6 +11,8 @@ class Item:
         self.item_price = item_price
         self.amount = amount
         self.is_integers
+        if len(item_name) > 10:
+            raise Exception('Длина наименования товара превышает 10 символов.')
 
     @property
     def item_name(self) -> str:
