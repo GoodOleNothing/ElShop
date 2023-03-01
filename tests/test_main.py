@@ -10,11 +10,11 @@ def test_item_name():
     #assert example2.item_name == None
 
 def test_instantiate_from_csv():
-    assert example.instantiate_from_csv() == None
+    assert Item.instantiate_from_csv() == Item.initiated_examples
 
 def test_is_integers():
-    assert example.is_integers(5.5, 5.1) == False
-    assert example.is_integers(5, 5) == True
+    assert example.is_integers(5.5) == False
+    assert example.is_integers(5) == True
 
 def test_calculate_total_price():
     assert example.calculate_total_price() == 200000
