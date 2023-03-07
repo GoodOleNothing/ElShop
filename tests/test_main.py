@@ -3,11 +3,9 @@ from main import Item
 
 
 example = Item("Смартфон", 10000, 20)
-example2 = Item("Тест", 10000.5, 20.0)
 
 def test_item_name():
     assert example.item_name == 'Смартфон'
-    #assert example2.item_name == None
 
 def test_instantiate_from_csv():
     assert Item.instantiate_from_csv() == Item.initiated_examples
@@ -21,6 +19,12 @@ def test_calculate_total_price():
 
 def test_apply_discount():
     assert example.apply_discount() == 8500.0
+
+def test_repr():
+    assert example.__repr__() == "Item('Смартфон', '10000', '20')"
+
+def test_str():
+    assert example.__str__() == 'Смартфон'
 
 
 

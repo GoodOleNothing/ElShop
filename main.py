@@ -58,7 +58,13 @@ class Item:
     def apply_discount(self):
         return float(self.item_price) * self.pay_rate
 
+    def __repr__(self) -> str:
+        """Вохвращает содержание класса"""
+        return f"{self.__class__.__name__}('{self.__item_name}', '{self.item_price}', '{self.amount}')"
 
+    def __str__(self) -> str:
+        """Возвращает название товара"""
+        return f'{self.__item_name}'
 
 
 
@@ -74,18 +80,21 @@ class Item:
 #print(item1.initiated_examples)
 #print(item1._item_name)
 
-item = Item('Телефон', 10000, 5)
-item.item_name = 'Смартфон'
-print(item.item_name)
-#item.item_name = 'СуперСмартфон'
+#item = Item('Телефон', 10000, 5)
+#item.item_name = 'Смартфон'
+#print(item.item_name)
+##item.item_name = 'СуперСмартфон'
+#
+#Item.instantiate_from_csv()
+#print(len(Item.initiated_examples))
+#item1 = Item.initiated_examples[0]
+#print(item1.item_name)
+#
+#print(Item.is_integers(5))
+#print(Item.is_integers(5.0))
+#print(Item.is_integers(5.5))
 
-Item.instantiate_from_csv()
-print(len(Item.initiated_examples))
-item1 = Item.initiated_examples[0]
-print(item1.item_name)
-
-print(Item.is_integers(5))
-print(Item.is_integers(5.0))
-print(Item.is_integers(5.5))
-
+item1 = Item("Смартфон", 10000, 20)
+#item1
+print(item1)
 
