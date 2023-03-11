@@ -11,8 +11,6 @@ class Item:
         self.item_price = item_price
         self.amount = amount
         self.is_integers
-        if len(item_name) > 10:
-            raise Exception('Длина наименования товара превышает 10 символов.')
 
     @property
     def item_name(self) -> str:
@@ -66,6 +64,31 @@ class Item:
         """Возвращает название товара"""
         return f'{self.__item_name}'
 
+    def __add__(self, other):
+        """Сложение экземпляров класса `Phone` и `Item`по количеству товара в магазине.
+        Нельзя сложить `Phone` или `Item` с экземплярами не `Phone` или `Item` классов"""
+        if not isinstance(other, Item):
+            raise ValueError('Нельзя сложить Phone или Item с экземплярами не Phone или Item классов')
+        return self.amount + other.amount
+
+
+class Phone(Item):
+
+    def __init__(self, item_name, item_price, amount, number_of_sim):
+        super().__init__(item_name, item_price, amount)
+        self._number_of_sim = number_of_sim
+
+    @property
+    def number_of_sim(self):
+        """Количество физических SIM-карт должно быть целым числом больше нуля."""
+        return self._number_of_sim
+
+    @number_of_sim.setter
+    def number_of_sim(self, value: int):
+        if isinstance(value, int) and int(value) > 0:
+            self._number_of_sim = value
+        else:
+            raise ValueError('Количество физических SIM-карт должно быть целым числом больше нуля.')
 
 
 
@@ -94,7 +117,13 @@ class Item:
 #print(Item.is_integers(5.0))
 #print(Item.is_integers(5.5))
 
-item1 = Item("Смартфон", 10000, 20)
-#item1
-print(item1)
+#item1 = Item("Смартфон", 10000, 20)
+##item1
+#print(item1)
 
+phone1 = Phone("iPhone 14", 120_000, 5, 2)
+item1 = Item("iPhone 14", 120_000, 3)
+print(phone1)
+print(repr(phone1))
+print(phone1 + item1)
+phone1.number_of_sim = 0
