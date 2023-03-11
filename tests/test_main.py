@@ -1,8 +1,9 @@
 import pytest
-from main import Item
+from main import *
 
 
 example = Item("Смартфон", 10000, 20)
+example2 = Phone("iPhone 14", 120_000, 5, 2)
 
 def test_item_name():
     assert example.item_name == 'Смартфон'
@@ -26,5 +27,8 @@ def test_repr():
 def test_str():
     assert example.__str__() == 'Смартфон'
 
+def test_number_of_sim():
+    assert example2.number_of_sim == 2
 
-
+def test_add():
+    assert example + example2 == 25
