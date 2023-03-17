@@ -1,5 +1,5 @@
-import pytest
-from main import *
+from workshop.item import Item
+from workshop.phone import Phone
 
 
 example = Item("Смартфон", 10000, 20)
