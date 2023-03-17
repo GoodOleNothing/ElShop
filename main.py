@@ -1,4 +1,5 @@
-from workshop.tools import *
+from workshop.item import Item
+from workshop.phone import *
 
 #item1 = Item("Смартфон", 10000, 20)
 #item2 = Item("Ноутбук", 20000, 5)
