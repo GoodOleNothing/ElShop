@@ -28,8 +28,8 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls) -> 'Item':
         """метод класса, выполняющий альтернативный способ создания объектов-товаров. Из csv-файла"""
-        with open('items.csv') as csvitems:
-            csvreader = csv.DictReader(csvitems)
+        with open('items.csv') as csv_items:
+            csvreader = csv.DictReader(csv_items)
             for i in csvreader:
                 static_func = cls.is_integers(i['price'])
                 if static_func == True:

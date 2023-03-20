@@ -1,5 +1,6 @@
 from workshop.item import Item
 from workshop.phone import *
+from workshop.keyboard import *
 
 #item1 = Item("Смартфон", 10000, 20)
 #item2 = Item("Ноутбук", 20000, 5)
@@ -30,9 +31,16 @@ from workshop.phone import *
 ##item1
 #print(item1)
 
-phone1 = Phone("iPhone 14", 120_000, 5, 2)
-item1 = Item("iPhone 14", 120_000, 3)
-print(phone1)
-print(repr(phone1))
-print(phone1 + item1)
-phone1.number_of_sim = 0
+#phone1 = Phone("iPhone 14", 120_000, 5, 2)
+#item1 = Item("iPhone 14", 120_000, 3)
+#print(phone1)
+#print(repr(phone1))
+#print(phone1 + item1)
+#phone1.number_of_sim = 0
+
+kb = Keyboard('Dark Project KD87A', 9600, 5)
+print(kb)
+print(kb.language)
+kb.change_lang()
+print(kb.language)
+#kb.language = 'CH'
