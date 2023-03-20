@@ -1,9 +1,10 @@
 from workshop.item import Item
 from workshop.phone import Phone
-
+from workshop.keyboard import Keyboard, Mixing
 
 example = Item("Смартфон", 10000, 20)
 example2 = Phone("iPhone 14", 120_000, 5, 2)
+example3 = Keyboard('Dark Project KD87A', 9600, 5)
 
 def test_item_name():
     assert example.item_name == 'Смартфон'
@@ -32,3 +33,10 @@ def test_number_of_sim():
 
 def test_add():
     assert example + example2 == 25
+
+def test_change_lang():
+    assert example3.language == 'EN'
+    example3.change_lang()
+    assert example3.language == 'RU'
+    example3.change_lang()
+    assert example3.language == 'EN'
