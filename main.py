@@ -44,4 +44,4 @@ from workshop.keyboard import *
 #kb.change_lang()
 #print(kb.language)
 #kb.language = 'CH'
-Item.instantiate_from_csv('dasd')
+Item.instantiate_from_csv()
