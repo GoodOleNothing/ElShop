@@ -1,6 +1,7 @@
 from workshop.item import Item
 from workshop.phone import Phone
 from workshop.keyboard import Keyboard, Mixing
+from workshop.instantiatecsverror import InstantiateCSVError
 
 example = Item("Смартфон", 10000, 20)
 example2 = Phone("iPhone 14", 120_000, 5, 2)
@@ -40,3 +41,6 @@ def test_change_lang():
     assert example3.language == 'RU'
     example3.change_lang()
     assert example3.language == 'EN'
+
+#def test_instantiatecsverror():
+#    pass

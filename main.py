@@ -1,4 +1,4 @@
-from workshop.item import Item
+from workshop.item import *
 from workshop.phone import *
 from workshop.keyboard import *
 
@@ -38,9 +38,10 @@ from workshop.keyboard import *
 #print(phone1 + item1)
 #phone1.number_of_sim = 0
 
-kb = Keyboard('Dark Project KD87A', 9600, 5)
-print(kb)
-print(kb.language)
-kb.change_lang()
-print(kb.language)
+#kb = Keyboard('Dark Project KD87A', 9600, 5)
+#print(kb)
+#print(kb.language)
+#kb.change_lang()
+#print(kb.language)
 #kb.language = 'CH'
+Item.instantiate_from_csv('dasd')
