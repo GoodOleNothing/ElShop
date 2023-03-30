@@ -1,4 +1,5 @@
 import csv
+from workshop.instantiatecsverror import InstantiateCSVError
 
 
 class Item:
@@ -26,21 +27,27 @@ class Item:
             raise Exception('Длина наименования товара превышает 10 символов.')
 
     @classmethod
-    def instantiate_from_csv(cls) -> 'Item':
+    def instantiate_from_csv(cls, file_name='items.csv') -> 'Item':
         """метод класса, выполняющий альтернативный способ создания объектов-товаров. Из csv-файла"""
-        with open('items.csv') as csv_items:
-            csvreader = csv.DictReader(csv_items)
-            for i in csvreader:
-                static_func = cls.is_integers(i['price'])
-                if static_func == True:
-                    item_name, item_price, quantity = (i['name'], float(i['price']), i['quantity'])
-                    cls.examples_data.append([item_name, int(item_price), quantity])
-                    cls.initiated_examples.append(cls(item_name, int(item_price), quantity))
-                else:
-                    item_name, item_price, quantity = (i['name'], float(i['price']), i['quantity'])
-                    cls.examples_data.append([item_name, item_price, quantity])
-                    cls.initiated_examples.append(cls(item_name, item_price, quantity))
-            return cls.initiated_examples
+        try:
+            with open(file_name) as csv_items:
+                csvreader = csv.DictReader(csv_items)
+                for i in csvreader:
+                    if list(i.keys()) == ['name', 'price', 'quantity']:
+                        static_func = cls.is_integers(i['price'])
+                        if static_func is True:
+                            item_name, item_price, quantity = (i['name'], float(i['price']), i['quantity'])
+                            cls.examples_data.append([item_name, int(item_price), quantity])
+                            cls.initiated_examples.append(cls(item_name, int(item_price), quantity))
+                        else:
+                            item_name, item_price, quantity = (i['name'], float(i['price']), i['quantity'])
+                            cls.examples_data.append([item_name, item_price, quantity])
+                            cls.initiated_examples.append(cls(item_name, item_price, quantity))
+                        return cls.initiated_examples
+                    else:
+                        raise InstantiateCSVError  #выдача ошибки повреждённого файла
+        except FileNotFoundError:  #ошибка ненайденного файла
+            raise FileNotFoundError('Отсутствует файл item.csv')
 
     @staticmethod
     def is_integers(item_price_type) -> bool:
@@ -70,3 +77,5 @@ class Item:
         if not isinstance(other, Item):
             raise ValueError('Нельзя сложить Phone или Item с экземплярами не Phone или Item классов')
         return self.amount + other.amount
+
+
